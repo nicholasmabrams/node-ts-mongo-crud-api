@@ -16,16 +16,21 @@ router.post('/create', (
   request: Request,
   response: Response,
   next: NextFunction) => {
-  const { author, content, title } = request.body;
+  const { 
+    author,
+    content,
+    title
+  }: {
+    author: string,
+    content: string,
+    title: string
+  } = request.body;
   
   createPost(author, content, title).then((success) => {
     if (success) {
-      response
-        .status(StatusCodes.OK)
-        .send(ReasonPhrases.OK);
+      response.sendStatus(StatusCodes.OK);
     } else {
-      response
-        .status(StatusCodes.INTERNAL_SERVER_ERROR);
+      response.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
       next(`Post insert failed! Error: ${ReasonPhrases.INTERNAL_SERVER_ERROR}.`);
     }
   });
@@ -35,15 +40,13 @@ router.get('/get/:uuid', (
   request: Request,
   response: Response,
   next: express.NextFunction) => {
-    const {uuid} = request.params; 
+    const {uuid}: {[uuid: string]: string} = request.params; 
     
     getPost(uuid).then((post) => {
       if (post) {
-        response.status(StatusCodes.OK).send(post);
+        response.json(post);
       } else {
-        response
-          .status(StatusCodes.INTERNAL_SERVER_ERROR)
-          .send(ReasonPhrases.INTERNAL_SERVER_ERROR);
+        next(StatusCodes.INTERNAL_SERVER_ERROR);
       }
     });
 });
@@ -52,17 +55,23 @@ router.put('/update', (
   request: Request,
   response: Response,
   next: express.NextFunction) => {
-    const { author, content, title, uuid } = request.body;
+    const {
+      author,
+      content,
+      title,
+      uuid
+    }: {
+      author: string,
+      content: string,
+      title: string,
+      uuid: string
+    } = request.body;
 
     updatePost(uuid, { author, content, title }).then((success) => {
       if (success) {
-        response
-          .status(StatusCodes.OK)
-          .send(ReasonPhrases.OK);
+        response.sendStatus(StatusCodes.OK);
       } else {
-        response
-          .status(StatusCodes.INTERNAL_SERVER_ERROR)
-          .send(StatusCodes.INTERNAL_SERVER_ERROR);
+        next(StatusCodes.INTERNAL_SERVER_ERROR);
       }
     });
 });
@@ -75,13 +84,9 @@ router.delete('/delete', (
 
     deletePost(uuid).then((success) => {
       if (success) {
-        response
-          .status(StatusCodes.OK)
-          .send(ReasonPhrases.OK);
+        response.sendStatus(StatusCodes.OK);
       } else {
-        response
-          .status(StatusCodes.INTERNAL_SERVER_ERROR)
-          .send(ReasonPhrases.INTERNAL_SERVER_ERROR);
+        next(StatusCodes.INTERNAL_SERVER_ERROR);
       }
     });
 });

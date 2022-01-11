@@ -1,0 +1,30 @@
+{
+  "name": "capture-life-assessment",
+  "version": "1.0.0",
+  "description": "The parent NPM module used to control/manage the API.",
+  "main": "rest-api/api.ts",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "build": "cd rest-api && npm i && cd ../data-access-layer && npm i && cd ../test/unit-tests && npm i && cd ../..",
+    "start": "clear && echo `🔥🌟Serving API on port 3000...🌟🔥` && cd rest-api && npm start",
+    "test": "clear && echo `🥇Initializing test runner...🥇` && npm run build && cd test/unit-tests && npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicholasmabrams/node-ts-mongo-crud-api.git"
+  },
+  "keywords": [
+    "typescript",
+    "express",
+    "mongodb",
+    "nodejs"
+  ],
+  "author": "Nicholas Abrams",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nicholasmabrams/node-ts-mongo-crud-api/issues"
+  },
+  "homepage": "https://github.com/nicholasmabrams/node-ts-mongo-crud-api#readme"
+}

@@ -81,9 +81,9 @@ import { connectMongo } from "./mongo-singleton";
     const query = {
       _id: new ObjectId(uuid)
     };
-    const postFound = db && await db.collection('comments').count(query);
+    const commentFound = db && await db.collection('comments').count(query);
   
-    if (postFound) {
+    if (commentFound) {
       const updateResult = await db.collection('comments').updateOne(query, {
         $set: {
           ...updatedCommentDetails

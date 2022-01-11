@@ -15,7 +15,15 @@ router.post('/create', (
   request: Request,
   response: Response,
   next: express.NextFunction) => {
-  const { author, content, uuid } = request.body;
+  const {
+    author,
+    content,
+    uuid
+  }: {
+    author: string,
+    content: string,
+    uuid: string
+  } = request.body;
 
   createComment(
     author,
@@ -23,13 +31,9 @@ router.post('/create', (
     uuid
   ).then((success) => {
     if (success) {
-      response
-        .status(StatusCodes.OK)
-        .send(ReasonPhrases.OK);
+      response.sendStatus(StatusCodes.OK);
     } else {
-      response.status(
-        StatusCodes.INTERNAL_SERVER_ERROR
-      );
+      response.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
       next(`Comment insert failed! Error: ${ReasonPhrases.INTERNAL_SERVER_ERROR}.`);
     }
   });
@@ -39,17 +43,13 @@ router.get('/get/:uuid', (
   request: Request,
   response: Response,
   next: express.NextFunction) => {
-    const {uuid} = request.params; 
+    const {uuid}: {[uuid: string]: string} = request.params; 
 
     getComment(uuid).then((comment) => {
       if (comment) {
-        response
-          .status(StatusCodes.OK)
-          .send(comment);
+        response.json(comment);
       } else {
-        response
-          .status(StatusCodes.INTERNAL_SERVER_ERROR)
-          .send(ReasonPhrases.INTERNAL_SERVER_ERROR);
+        next(StatusCodes.INTERNAL_SERVER_ERROR);
       }
     });
 });
@@ -58,17 +58,21 @@ router.put('/update', (
   request: Request,
   response: Response,
   next: express.NextFunction) => {
-    const { author, content, uuid } = request.body;
+    const {
+      author,
+      content,
+      uuid
+    }: {
+      author: string,
+      content: string,
+      uuid: string
+     } = request.body;
 
     updateComment(uuid, { author, content }).then((success) => {
       if (success) {
-        response
-          .status(StatusCodes.OK)
-          .send(ReasonPhrases.OK);
+        response.sendStatus(StatusCodes.OK);
       } else {
-        response
-          .status(StatusCodes.INTERNAL_SERVER_ERROR)
-          .send(StatusCodes.INTERNAL_SERVER_ERROR);
+        next(StatusCodes.INTERNAL_SERVER_ERROR);
       }
     });
 });
@@ -77,15 +81,13 @@ router.delete('/delete', (
   request: Request,
   response: Response,
   next: express.NextFunction) => {
-    const {uuid} = request.body;
+    const {uuid}: {[uuid: string]: string} = request.body;
 
     deleteComment(uuid).then((success) => {
       if (success) {
-        response.status(StatusCodes.OK).send(ReasonPhrases.OK);
+        response.sendStatus(StatusCodes.OK);
       } else {
-        response
-          .status(StatusCodes.INTERNAL_SERVER_ERROR)
-          .send(ReasonPhrases.INTERNAL_SERVER_ERROR);
+        next(StatusCodes.INTERNAL_SERVER_ERROR);
       }
     });
 });

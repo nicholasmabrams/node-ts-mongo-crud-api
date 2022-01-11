@@ -5,7 +5,6 @@
   "main": "index.ts",
   "private": true,
   "scripts": {
-    "test": "test",
     "start": "ts-node index.ts"
   },
   "keywords": [
