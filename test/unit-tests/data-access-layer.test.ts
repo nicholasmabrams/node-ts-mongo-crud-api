@@ -37,8 +37,8 @@ const testAuthorName = 'Ken Thompson';
  * they should be unique to prevent false test failures 
  * and avoid collisions.
  */
-const commentToDeleteUuid = '61dce6993dcc09c1ee21247e';
-const postToDeleteUuid = '61dce43e2d11360eed529cfe';
+const commentToDeleteUuid = '61dd102222b6f110f0556db0';
+const postToDeleteUuid = '61dd0a79271a0ecfbdd5c4ec';
 
 /**
  * @warning Do not ```declare``` Jest methods if 
@@ -171,3 +171,5 @@ test('Will not add a comment to a post if the ID is invalid.', ()=> {
     expect(success).toBe(false);
   });
 });
+
+// In the real world more negative cases would be here...

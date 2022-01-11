@@ -60,15 +60,15 @@ router.put('/update', (
   next: express.NextFunction) => {
     const {
       author,
-      content,
+      comment,
       uuid
     }: {
       author: string,
-      content: string,
+      comment: string,
       uuid: string
      } = request.body;
 
-    updateComment(uuid, { author, content }).then((success) => {
+    updateComment(uuid, { author, comment }).then((success) => {
       if (success) {
         response.sendStatus(StatusCodes.OK);
       } else {

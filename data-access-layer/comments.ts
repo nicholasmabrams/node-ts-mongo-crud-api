@@ -1,6 +1,7 @@
 import { ObjectId } from "mongodb";
 
 import { dbName } from "./common";
+import { CommentUpdateInterface } from "./interfaces/comment.interface";
 import { connectMongo } from "./mongo-singleton";
 
 /**
@@ -72,10 +73,7 @@ import { connectMongo } from "./mongo-singleton";
   
   export async function updateComment(
     uuid: string,
-    updatedCommentDetails: {
-      author?: string,
-      content?: string
-    }) {
+    updatedCommentDetails: CommentUpdateInterface) {
     const connection = await connectMongo();
     const db = connection && connection.db(dbName);
     const query = {

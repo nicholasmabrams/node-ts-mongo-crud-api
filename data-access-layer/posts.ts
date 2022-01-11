@@ -1,6 +1,7 @@
 import { InsertOneResult, ObjectId } from "mongodb";
 
 import { dbName } from "./common";
+import { PostUpdateInterface } from "./interfaces/post.interface";
 import { connectMongo } from "./mongo-singleton";
 
 /**
@@ -48,11 +49,7 @@ import { connectMongo } from "./mongo-singleton";
   
   export async function updatePost(
     uuid: string, 
-    updatedPostDetails: { 
-      author?: string,
-      content?: string,
-      title?: string
-    }) {
+    updatedPostDetails: PostUpdateInterface) {
     const connection = await connectMongo();
     const db = connection && connection.db(dbName);
     const query = {

@@ -11,7 +11,7 @@ Thanks for your interest, as well as the opportunity to have fun doing what I lo
 
 > Other modern versions of the software above should should work too, however this project has only been tested using the above recommended configurations. 
 
-> If you already another modern version of NodeJS listed above installed on your machine, you may find it handy to use Node Version Manager to seamlessly manage switching to and from a variety of NodeJS and NPM versions.
+> If you already have another modern version of NodeJS listed above installed on your machine, you may find it handy to use Node Version Manager to seamlessly manage switching to and from a variety of NodeJS and NPM versions.
 
 * Download and install [Postman REST API tool](https://www.postman.com/downloads/)
 
@@ -22,12 +22,14 @@ Thanks for your interest, as well as the opportunity to have fun doing what I lo
 
         %> cd $REPO_PARENT_DIRECTORY/capture-life-assessment
 
-2. Run `npm run build` in the **top level** directory located within the `$REPO_PARENT_DIRECTORY/capture-life-assessment` on your machines filesystem, in order to install all of the dependencies within the data-access-layer, api and automatically copy the transpiled version of the DAL into the `$REPO_PARENT_DIRECTORY/capture-life-assessment/unit-test` folder. This skips the need to manually traverse the repo into each child directory, understand the architecture or build each module individually.
+2. Import the data from `$REPO_PARENT_DIRECTORY/capture-life-assessment/mongo-json-dump` into your MongoDB instance. There are (2) collections. One is for `posts` and the other is for `comments`. The UUIDs (`_ids`) are relied upon in the unit test's, and certain tests will fail if the data does not match what is expected. If you do not need to run the tests you may alternatively run `npm run seed` within the `$REPO_PARENT_DIRECTORY/capture-life-assessment/data-access-layer` NodeJS module and it will generate 25 comments and posts with unique ID's and then populate your MongoDB database instance with the new records. 
+
+3. Run `npm run build` in the **top level** directory located within the `$REPO_PARENT_DIRECTORY/capture-life-assessment` on your machines filesystem, in order to install all of the dependencies within the data-access-layer, api and automatically copy the transpiled version of the DAL into the `$REPO_PARENT_DIRECTORY/capture-life-assessment/unit-test` folder. This skips the need to manually traverse the repo into each child directory, understand the architecture or build each module individually.
 
         %> npm run build
 > You only need to run the above `build` command when you first run the project on a machine, make changes to the `data-access-layer`, or when you delete any or all of the `node_modules` directories, and/or run `npm cache clean`. Changes to the API and unit tests will be reflected by just re-running the `npm start` command in the next step.
 
-3. You are now ready to run the project! After performing the above (2) steps, you may start the API by simply running `npm start`! 
+4. You are now ready to run the project! After performing the above (3) steps, you may start the API by simply running `npm start`! 
 
         %> npm run start
 

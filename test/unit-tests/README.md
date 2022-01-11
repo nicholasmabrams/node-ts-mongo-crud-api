@@ -1,6 +1,12 @@
 # Unit tests
 Since the API is tested using Postman, the only portions of code which needed coverage by unit tests are located in the `data-access-layer`.
 
+# Populating the database before running the API
+
+Import the data from `$REPO_PARENT_DIRECTORY/capture-life-assessment/mongo-json-dump` into your MongoDB instance. There are (2) collections. One is for `posts` and the other is for `comments`. The UUIDs (`_ids`) are relied upon in the unit test's, and certain tests will fail if the data does not match what is expected. 
+
+> If you do not need to run the tests you may alternatively run `npm run seed` within the `$REPO_PARENT_DIRECTORY/capture-life-assessment/data-access-layer` NodeJS module and it will generate 25 comments and posts with unique ID's and then populate your MongoDB database instance with the new records. 
+
 ### Running unit tests 
 
 First, install the unit test dependencies through your terminal like so:
