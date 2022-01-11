@@ -1,0 +1,7 @@
+
+{
+    "compilerOptions": {
+        "baseUrl": "types",
+        "typeRoots": ["types"]
+    }
+}

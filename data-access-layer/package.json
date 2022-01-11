@@ -1,0 +1,26 @@
+{
+  "name": "capture-life-assessment-data-access-layer",
+  "version": "1.0.0",
+  "description": "Allows for database seeding, defines and validates document structure, provides abstracted direct-access to database IO and prevents multiple connections becoming establshed per client request.",
+  "main": "index.ts",
+  "private": true,
+  "scripts": {
+    "test": "test",
+    "start": "ts-node index.ts"
+  },
+  "keywords": [
+    "dal",
+    "data",
+    "access",
+    "layer"
+  ],
+  "author": "Nicholas Abrams",
+  "license": "MIT",
+  "dependencies": {
+    "@types/node": "^17.0.8",
+    "@types/mongodb": "^4.0.7",
+    "mongodb": "^4.3.0",
+    "typescript": "^4.5.4",
+    "ts-node": "^10.4.0"
+  }
+}
