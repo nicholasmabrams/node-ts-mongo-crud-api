@@ -18,7 +18,7 @@ import { connectMongo } from "./mongo-singleton";
   ) {
     const connection = await connectMongo();
     const db = connection && connection.db(dbName);
-    const timestamp = new Date().toLocaleString();
+    const timestamp = new Date().toISOString()
     const insertOperationResult: InsertOneResult | void = db && await db.collection('posts').insertOne({
       title,
       author,
@@ -32,6 +32,11 @@ import { connectMongo } from "./mongo-singleton";
     );
   }
   
+  /**
+   * @function getPost Gets a single post by UUID.
+   * @param uuid The post to fetch from the DB and return.
+   * @returns The post if successful, or false if not.
+   */
   export async function getPost(uuid: string) {
     const connection = await connectMongo();
     const db = connection && connection.db(dbName);
@@ -47,6 +52,14 @@ import { connectMongo } from "./mongo-singleton";
     }
   }
   
+  /**
+   * @function updatePost
+   * @param uuid The UUID of the post to update. 
+   * @param updatedPostDetails The post details to apply
+   *                              during the update, overwriting
+   *                              data from the previous entry.
+   * @returns If successful, return true if not false.
+   */
   export async function updatePost(
     uuid: string, 
     updatedPostDetails: PostUpdateInterface) {
@@ -69,6 +82,11 @@ import { connectMongo } from "./mongo-singleton";
     }
   }
   
+   /**
+   * @function deletePost Deletes a single post by UUID.
+   * @param uuid The UUID of the post to delete.
+   * @returns If successful, return true if not false.
+   */
   export async function deletePost(uuid: string) {
     const connection = await connectMongo();
     const db = connection && connection.db(dbName);

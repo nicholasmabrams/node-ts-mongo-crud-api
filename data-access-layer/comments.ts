@@ -18,11 +18,11 @@ import { connectMongo } from "./mongo-singleton";
  export async function createComment(
     author: string,
     comment: string,
-    associatedUuid: string) {
+    uuid: string) {
     const connection = await connectMongo();
     const db = connection && connection.db(dbName);
     const query = {
-      _id: new ObjectId(associatedUuid)
+      _id: new ObjectId(uuid)
     };
     const postFound = db && await db.collection('posts').count(query);
     const commentFound = db && await db.collection('comments').count(query);
@@ -31,8 +31,8 @@ import { connectMongo } from "./mongo-singleton";
       db && await db.collection('comments').insertOne({ 
         author,
         comment,
-        associatedUuid,
-        associatedType: postFound ? 'post' : 'comment'
+        uuid,
+        linkedType: postFound ? 'post' : 'comment'
       });
   
       return true;
@@ -41,6 +41,11 @@ import { connectMongo } from "./mongo-singleton";
     }
   }
   
+  /**
+   * @function getComment Gets a single comment by UUID.
+   * @param uuid The comment to fetch from the DB and return.
+   * @returns The comment if successful, or false if not.
+   */
   export async function getComment(uuid: string) {
     const connection = await connectMongo();
     const db = connection && connection.db(dbName);
@@ -56,6 +61,11 @@ import { connectMongo } from "./mongo-singleton";
     }
   }
   
+  /**
+   * @function deleteComment Deletes a single comment by UUID.
+   * @param uuid The UUID of the comment to delete.
+   * @returns If successful, return true if not false.
+   */
   export async function deleteComment(uuid: string) {
     const connection = await connectMongo();
     const db = connection && connection.db(dbName);
@@ -71,6 +81,14 @@ import { connectMongo } from "./mongo-singleton";
     }
   }
   
+  /**
+   * @function updateComment
+   * @param uuid The UUID of the comment to update. 
+   * @param updatedCommentDetails The comment details to apply
+   *                              during the update, overwriting
+   *                              data from the previous entry.
+   * @returns If successful, return true if not false.
+   */
   export async function updateComment(
     uuid: string,
     updatedCommentDetails: CommentUpdateInterface) {

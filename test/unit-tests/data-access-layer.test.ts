@@ -53,123 +53,184 @@ test('Will successfully add a post', () => {
     author,
     postContent,
     postTitle).then((success) => {
-      const consoleMethod = console[success ? 'log' : 'error'];
-      const consoleMessage = (
-        success
-          ? 'New post successful!'
-          : 'New post failed!'
-      );
-    
-      consoleMethod(consoleMessage);
       expect(success).toBe(true);
   });
 });
 
 // Testing positive cases for comments.
-test('Will successfully add a comment to a post', ()=> {
-  return createComment(
-    author,
-    commentContent,
-    postUuid,
-  ).then((success) => {
-    const consoleMethod = console[success ? 'log' : 'error'];
-    const consoleMessage = (
-      success
-        ? 'Matched and updated entity with new comment!'
-        : 'No match in posts or comments!'
-    );
-
-    if (!success) {
-      consoleMethod(consoleMessage);
-    }
-
-    expect(success).toBe(true);
-  });
-});
-
 test('Will successfully add a comment to a comment', ()=> {
   return createComment(
     author,
     commentContent,
     commentUuid,
   ).then((success) => {
-    const consoleMethod = console[success ? 'log' : 'error'];
-    const consoleMessage = (
-      success
-        ? 'Matched and updated entity with new comment!'
-        : 'No match in posts or comments!'
-    );
-
-    if (!success) {
-      consoleMethod(consoleMessage);
-    }
-
     expect(success).toBe(true);
   });
 });
 
 test('Will get a comment by UUID', () => {
-
   return getComment(commentUuid).then((comment) => {
     expect(!!comment).toBe(true);
   });
 });
 
 test('Will update a comment by UUID', () => {
-  return updateComment(commentUuid, {author: testAuthorName}).then((success) => {
-    expect(success).toBe(true);
-  });
+  return updateComment(commentUuid, {author: testAuthorName})
+    .then((success) => {
+      expect(success).toBe(true);
+    });
 });
 
 test('Will delete a comment by UUID', () => {
-  return deleteComment(commentToDeleteUuid).then((success) => {
+  return deleteComment(commentToDeleteUuid)
+    .then((success) => {
+      expect(success).toBe(true);
+    });
+});
+
+test('Will successfully add a comment to a post', ()=> {
+  return createComment(
+    author,
+    commentContent,
+    postUuid,
+  ).then((success) => {
     expect(success).toBe(true);
   });
 });
 
 // Testing positive cases for posts.
 test('Will get a post by UUID', () => {
-
   return getPost(postUuid).then((post) => {
     expect(!!post).toBe(true);
   });
 });
 
 test('Will update a post by UUID', () => {
-  const testAuthorName = 'Ken Thompson';
-  
-  return updatePost(postUuid, {author: testAuthorName}).then((success) => {
-    expect(success).toBe(true);
-  });
+  return updatePost(postUuid, {author: testAuthorName})
+    .then((success) => {
+      expect(success).toBe(true);
+    });
 });
 
 test('Will delete a post by UUID', () => {
-  return deletePost(postToDeleteUuid).then((success) => {
-    expect(success).toBe(true);
-  });
+  return deletePost(postToDeleteUuid)
+    .then((success) => {
+      expect(success).toBe(true);
+    });
 });
 
 // Testing negative cases. 
-test('Will not add a comment to a post if the ID is invalid.', ()=> {
+test('Will not add a comment to a post if it is missing an author.', ()=> {
+  return createComment(
+    undefined,
+    commentContent,
+    postUuid,
+  ).catch((error) => {
+    expect(error).toExist();
+  });
+});
+
+test('Will not add a comment to a post if it is missing content.', ()=> {
+  return createComment(
+    author,
+    undefined,
+    postUuid,
+  ).catch((error) => {
+    expect(error).toExist();
+  });
+});
+
+test('Will not add a comment to a post if the UUID is invalid.', ()=> {
   return createComment(
     author,
     commentContent,
     fakeUuid,
   ).then((success) => {
-    const consoleMethod = console[!success ? 'log' : 'error'];
-    const consoleMessage = (
-      success
-        ? 'No new comment was added since an invalid UUID was provided.'
-        : `Unexpected! New comment added despite the fact that an 
-           invalid UUID provided to createComment().`
-    );
-
-    if (success) {
-      consoleMethod(consoleMessage);
-    }
-
     expect(success).toBe(false);
   });
 });
+
+test('Will not add a comment to a post if it is missing a UUID.', ()=> {
+  return createComment(
+    author,
+    commentContent,
+    undefined,
+  ).catch((error) => {
+    expect(error).toExist();
+  });
+});
+
+test('Will not add a post if it is missing a title.', ()=> {
+  return createPost(
+    author,
+    postContent,
+    undefined).then((success) => {
+  }).catch((error) => {
+    expect(error).toExist();
+  });
+});
+
+test('Will not add a post if it is missing content.', ()=> {
+  return createPost(
+    author,
+    undefined,
+    postTitle).then((success) => {
+  }).catch((error) => {
+    expect(error).toExist();
+  });
+});
+
+test('Will not add a post if it is missing an author.', ()=> {
+  return createPost(
+    null,
+    postContent,
+    postTitle).then((success) => {
+  }).catch((error) => {
+    expect(error).toExist();
+  });
+});
+
+test('Will not get a comment by a bad UUID', () => {
+  return getComment(fakeUuid)
+    .catch((error) => {
+      expect(error).toExist();
+    });
+});
+
+test('Will not update a comment by a bad UUID', () => {
+  return updateComment(fakeUuid, {author: testAuthorName})
+    .catch((error) => {
+      expect(error).toExist();
+    });
+});
+
+test('Will not delete a comment by a bad UUID', () => {
+  return deleteComment(fakeUuid)
+    .catch((error) => {
+      expect(error).toExist(true);
+    });
+});
+
+// Posts negative tests. 
+test('Will not get a post by a bad UUID', () => {
+  return getPost(fakeUuid).catch((error) => {
+    expect(error).toExist();
+  });
+});
+
+test('Will not update a post by bad UUID', () => {
+  return updatePost(fakeUuid, {author: testAuthorName})
+    .catch((error) => {
+      expect(error).toExist();
+    });
+});
+
+test('Will not delete a post by UUID', () => {
+  return deletePost(fakeUuid)
+    .catch((error) => {
+      expect(error).toExist();
+    });
+});
+
 
 // In the real world more negative cases would be here...

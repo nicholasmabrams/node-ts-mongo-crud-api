@@ -4,12 +4,23 @@ import{
   getComment,
   updateComment
 } from "./comments";
+import { connectMongo } from "./mongo-singleton";
 import {
   createPost,
   getPost,
   updatePost,
   deletePost
 } from "./posts";
+import { setupJsonSchema } from "./validation";
+
+// Setup basic document-based JSON schemas and validators at the DB level. 
+connectMongo()
+    .then(async (connection) => {
+        await setupJsonSchema(connection);
+    })
+    .catch((error) => {
+     new Error(error);
+});
 
 // Named exports.
 export {createComment};

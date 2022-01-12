@@ -1,1 +1,1 @@
-export const dbName = 'testDb';
+export const dbName = 'capture-life-assessment-database';
