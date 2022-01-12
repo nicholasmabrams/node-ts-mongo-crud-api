@@ -57,6 +57,26 @@ test('Will successfully add a post', () => {
   });
 });
 
+test('Will get a post by UUID', () => {
+  return getPost(postUuid).then((post) => {
+    expect(!!post).toBe(true);
+  });
+});
+
+test('Will update a post by UUID', () => {
+  return updatePost(postUuid, {author: testAuthorName})
+    .then((success) => {
+      expect(success).toBe(true);
+    });
+});
+
+test('Will delete a post by UUID', () => {
+  return deletePost(postToDeleteUuid)
+    .then((success) => {
+      expect(success).toBe(true);
+    });
+});
+
 // Testing positive cases for comments.
 test('Will successfully add a comment to a comment', ()=> {
   return createComment(
@@ -98,28 +118,7 @@ test('Will successfully add a comment to a post', ()=> {
   });
 });
 
-// Testing positive cases for posts.
-test('Will get a post by UUID', () => {
-  return getPost(postUuid).then((post) => {
-    expect(!!post).toBe(true);
-  });
-});
-
-test('Will update a post by UUID', () => {
-  return updatePost(postUuid, {author: testAuthorName})
-    .then((success) => {
-      expect(success).toBe(true);
-    });
-});
-
-test('Will delete a post by UUID', () => {
-  return deletePost(postToDeleteUuid)
-    .then((success) => {
-      expect(success).toBe(true);
-    });
-});
-
-// Testing negative cases. 
+// Testing comments negative cases. 
 test('Will not add a comment to a post if it is missing an author.', ()=> {
   return createComment(
     undefined,
@@ -212,6 +211,42 @@ test('Will not delete a comment by a bad UUID', () => {
 });
 
 // Posts negative tests. 
+test('Will not add a post if missing the author parameter ', () => { 
+  return createPost(
+    undefined,
+    postContent,
+    postTitle).catch((error) => {
+      expect(error).toExist();
+  });
+});
+
+test('Will not add a post if missing the content parameter ', () => { 
+  return createPost(
+    author,
+    undefined,
+    postTitle).catch((error) => {
+      expect(error).toExist();
+  });
+});
+
+test('Will not add a post if missing the title parameter ', () => { 
+  return createPost(
+    author,
+    postContent,
+    undefined).catch((error) => {
+      expect(error).toExist();
+  });
+});
+
+test('Will not add a post if missing the author parameter ', () => { 
+  return createPost(
+    undefined,
+    postContent,
+    postTitle).catch((error) => {
+      expect(error).toExist();
+  });
+});
+
 test('Will not get a post by a bad UUID', () => {
   return getPost(fakeUuid).catch((error) => {
     expect(error).toExist();
@@ -225,7 +260,7 @@ test('Will not update a post by bad UUID', () => {
     });
 });
 
-test('Will not delete a post by UUID', () => {
+test('Will not delete a post by a bad UUID', () => {
   return deletePost(fakeUuid)
     .catch((error) => {
       expect(error).toExist();
