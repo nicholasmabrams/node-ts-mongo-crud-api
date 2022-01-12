@@ -62,7 +62,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"uuid\":\"61dcfabf76880da4e4273952\",\r\n    \"title\": \"An updated post!\",\r\n    \"author\": \"Bad Bunny\",\r\n    \"content\": \"This content is newly updated\"\r\n}",
+					"raw": "{\r\n    \"uuid\":\"61dcfaae4c2234d7ad4ca7d3\",\r\n    \"title\": \"An updated post!\",\r\n    \"author\": \"Bad Bunny\",\r\n    \"content\": \"This content is newly updated\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -91,7 +91,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"uuid\":\"61dcfabf76880da4e4273952\"\r\n}",
+					"raw": "{\r\n    \"uuid\":\"61dd0a79271a0ecfbdd5c4ec\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
