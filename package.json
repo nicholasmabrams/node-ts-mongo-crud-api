@@ -7,9 +7,11 @@
     "test": "test"
   },
   "scripts": {
-    "build": "cd rest-api && npm i && cd ../data-access-layer && npm i && cd ../test/unit-tests && npm i && cd ../..",
+    "build": "npm run preinstall",
+    "preinstall": "npm run install-submodules",
+    "install-submodules": "cd rest-api && npm i && cd ../data-access-layer && npm i && cd ../test/unit-tests && npm i && cd ../..",
     "start": "clear && echo `🔥🌟Serving API on port 3000...🌟🔥` && cd rest-api && npm start",
-    "test": "clear && echo `🥇Initializing test runner...🥇` && npm run build && cd test/unit-tests && npm test"
+    "test": "clear && echo `🥇Initializing test runner...🥇` && npm i && cd test/unit-tests && npm test"
   },
   "repository": {
     "type": "git",

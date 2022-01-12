@@ -94,7 +94,7 @@ import { connectMongo } from "./mongo-singleton";
       _id: new ObjectId(uuid)
     };
     const postFound = db && await db.collection('posts').count(query);
-  
+    
     if (postFound) {
       return (await db.collection('posts').deleteOne(query)).deletedCount === 1;
     } else {

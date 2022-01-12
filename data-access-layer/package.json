@@ -1,11 +1,15 @@
 {
   "name": "capture-life-assessment-data-access-layer",
   "version": "1.0.0",
-  "description": "Allows for database seeding, defines and validates document structure, provides abstracted direct-access to database IO and prevents multiple connections becoming establshed per client request.",
+  "description": "Allows for database seeding, defines and validates document structure, provides abstracted direct-access to database IO and prevents multiple connections becoming established per client request.",
   "main": "index.ts",
   "private": true,
   "scripts": {
     "seed": "ts-node seeds/mock-data.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicholasmabrams/node-ts-mongo-crud-api.git"
   },
   "keywords": [
     "dal",
